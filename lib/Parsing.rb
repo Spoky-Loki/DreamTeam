@@ -2,10 +2,9 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-url = 'https://www.cubecinema.com/programme'
-doc = Nokogiri::HTML(URI.open(url))
-
-print doc
+uri = 'https://rawg.io/'
+doc = Nokogiri::HTML(URI.open(uri))
+puts doc
 =begin
 showings = []
 doc.css('.showing').each do |showing|
