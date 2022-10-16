@@ -2,27 +2,46 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-uri = 'https://rawg.io/'
-doc = Nokogiri::HTML(URI.open(uri))
-puts doc
-=begin
-showings = []
-doc.css('.showing').each do |showing|
-  showing_id = showing['id'].split('_').last.to_i
-  tags = showing.css('.tags a').map { |tag| tag.text.strip }
-  title_el = showing.at_css('h1 a')
-  title_el.children.each { |c| c.remove if c.name == 'span' }
-  title = title_el.text.strip
-  dates = showing.at_css('.start_and_pricing').inner_html.strip
-  dates = dates.split('<br>').map(&:strip).map { |d| DateTime.parse(d) }
-  description = showing.at_css('.copy').text.gsub('[more...]', '').strip
-  showings.push(
-    id: showing_id,
-    title: title,
-    tags: tags,
-    dates: dates,
-    description: description
-  )
+def GetGamesID(min = 0, max = 0)
+  url = Nokogiri::HTML5(URI.open('https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=32B040E9C3CFEE31A743F7F0FF906454&steamids=76561198109538094')).to_s
+  arr = url.match(/<body>(?<information>.*)<\/body>/)[1].split(',')
+  res = []
+  i = 0
+  while i < arr.size
+    id = arr[i].match(/\{"appid":(?<id>.*)/)
+    if !id.nil?
+      res.push(id[:id])
+    end
+    if max != -1 and res.size == max
+      break
+    end
+    i += 1
+  end
+  max = res.size
+  return res[min, max]
 end
-puts JSON.pretty_generate(showings)
-=end
+
+def InformationOfGames(gamesID)
+  res = []
+  gamesID.each do |g|
+    begin
+      information = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
+      if information.include?('true')
+        matchInformation = information.match(/"name":"(?<title>.*)","steam_appid",/)
+        if !matchInformation[:title].nil?
+          puts matchInformation[:title]
+        else
+          puts '-'
+        end
+      else
+        puts '+'
+      end
+    rescue
+      next
+    end
+  end
+  return res
+end
+
+gamesID = GetGamesID(100, 200)
+#gamesInformation = InformationOfGames(gamesID)
