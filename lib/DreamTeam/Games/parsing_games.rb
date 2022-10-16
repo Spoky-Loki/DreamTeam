@@ -2,34 +2,46 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-def GetGamesID(data)
-  arr = data.match(/<body>(?<information>.*)<\/body>/)[1].split(',')
+def GetGamesID(min = 0, max = 0)
+  url = Nokogiri::HTML5(URI.open('https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=32B040E9C3CFEE31A743F7F0FF906454&steamids=76561198109538094')).to_s
+  arr = url.match(/<body>(?<information>.*)<\/body>/)[1].split(',')
   res = []
   i = 0
   while i < arr.size
-    a1 = arr[i].match(/\{"appid":(?<id>.*)/)
-    if (!a1.nil?)
-      res.push(a1[:id])
+    id = arr[i].match(/\{"appid":(?<id>.*)/)
+    if !id.nil?
+      res.push(id[:id])
+    end
+    if max != -1 and res.size == max
+      break
     end
     i += 1
+  end
+  max = res.size
+  return res[min, max]
+end
+
+def InformationOfGames(gamesID)
+  res = []
+  gamesID.each do |g|
+    begin
+      information = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
+      if information.include?('true')
+        matchInformation = information.match(/"name":"(?<title>.*)","steam_appid",/)
+        if !matchInformation[:title].nil?
+          puts matchInformation[:title]
+        else
+          puts '-'
+        end
+      else
+        puts '+'
+      end
+    rescue
+      next
+    end
   end
   return res
 end
 
-=begin
-url2 = 'https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=1440360'
-doc2 = Nokogiri::HTML5(URI.open(url2)).to_s
-#puts doc2
-
-reg = /<body>(?<information>.*)<\/body>/
-match_data = doc2.match(reg)
-
-if match_data.nil?
-  puts "No match"
-else
-  puts(match_data[:information])
-end
-=end
-
-gamesID = GetGamesID(Nokogiri::HTML5(URI.open('https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=32B040E9C3CFEE31A743F7F0FF906454&steamids=76561198109538094')).to_s)
-puts gamesID
+gamesID = GetGamesID(100, 200)
+#gamesInformation = InformationOfGames(gamesID)
