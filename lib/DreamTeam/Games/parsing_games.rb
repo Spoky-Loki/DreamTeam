@@ -26,15 +26,12 @@ def InformationOfGames(gamesID)
   gamesID.each do |g|
     begin
       information = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
-      if information.include?('true')
-        matchInformation = information.match(/"name":"(?<title>.*)","steam_appid",/)
-        if !matchInformation[:title].nil?
-          puts matchInformation[:title]
-        else
-          puts '-'
+      if information.include?('"type":"game"')
+        #puts information
+        matchInformation = information.match(/"name":"(?<title>.*)","steam_appid".*"short_description":"(?<shortDesc>.*)","supported_languages":"/)
+        if !matchInformation[:title].nil? and !matchInformation[:shortDesc].nil?
+          puts matchInformation[:title] + matchInformation[:shortDesc]
         end
-      else
-        puts '+'
       end
     rescue
       next
@@ -44,4 +41,4 @@ def InformationOfGames(gamesID)
 end
 
 gamesID = GetGamesID(100, 200)
-#gamesInformation = InformationOfGames(gamesID)
+gamesInformation = InformationOfGames(gamesID)
