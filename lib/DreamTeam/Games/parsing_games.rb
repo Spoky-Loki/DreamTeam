@@ -28,9 +28,17 @@ def InformationOfGames(gamesID)
       if information.include?('"type":"game"')
         #puts information.split(',')
         informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*l_formatted":"(?<price>.*)."},"pac.*:{"total":(?<players>\d*).*date":"(?<data>.*)"},"su/)
-        if !informations[:name].nil? and !informations[:desc].nil?
-          res.push({name:informations[:name], price:informations[:price], players: informations[:players], data: informations[:data], desc: informations[:desc]})
-          #puts informations[:name] + ' ' + informations[:price] + ' ' + informations[:recommend]
+        imagesDevelopers = information.match(/"header_image":"(?<img>.*)","website".*"developers":\[(?<developers>.*)\],"publishers":\[(?<publishers>.*)\],"price_/)
+        if !informations[:name].nil?
+          name = informations[:name]
+          price = informations[:price]
+          players = informations[:players]
+          data = informations[:data]
+          desc = informations[:desc]
+          img = imagesDevelopers[:img]
+          developers = imagesDevelopers[:developers]
+          publishers = imagesDevelopers[:publishers]
+          res.push({name: name, price: price, players: players, data: data, desc: desc, img: img, developers: developers, publishers: publishers})
         end
       end
     rescue
