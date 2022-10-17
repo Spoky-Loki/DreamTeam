@@ -5,7 +5,7 @@ fileHtml.puts "<style>
 .table_dark {
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;
   font-size: 14px;
-  width: 1500px;
+  width: 90%;
   text-align: left;
   border-collapse: collapse;
   background: #252F48;
@@ -19,7 +19,7 @@ fileHtml.puts "<style>
 .table_dark td {
   color: #CAD4D6;
   border-bottom: 1px solid #37B5A5;
-  border-right:1px solid #37B5A5;
+  border-right:  1px solid #37B5A5;
   padding: 7px 17px;
 }
 .table_dark tr:last-child td {
@@ -37,6 +37,8 @@ fileHtml.puts "<style>
     <th>Game</th>
     <th>Price</th>
     <th>Recommend</th>
+    <th>date</th>
+    <th>Description</th>
     </tr>"
 
 gamesInformation = InformationOfGames(GetGamesID())
