@@ -39,7 +39,7 @@ fileHtml.puts "<style>
     <th>Recommend</th>
     </tr>"
 
-gamesInformation = InformationOfGames(GetGamesID)
+gamesInformation = InformationOfGames(GetGamesID())
 gamesInformation.each do |elem|
   fileHtml.puts "<tr>"
   elem.each do |_, value|
