@@ -27,7 +27,7 @@ def InformationOfGames(gamesID)
       information = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
       if information.include?('"type":"game"')
         #puts information.split(',')
-        informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*l_formatted":"(?<price>.*)."},"pac.*:{"total":(?<players>.*)},"rel.*date":"(?<data>.*)"},"su/)
+        informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*l_formatted":"(?<price>.*)."},"pac.*:{"total":(?<players>\d*).*date":"(?<data>.*)"},"su/)
         if !informations[:name].nil? and !informations[:desc].nil?
           res.push({name:informations[:name], price:informations[:price], players: informations[:players], data: informations[:data], desc: informations[:desc]})
           #puts informations[:name] + ' ' + informations[:price] + ' ' + informations[:recommend]
