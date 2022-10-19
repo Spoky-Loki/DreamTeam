@@ -29,7 +29,7 @@ def InformationOfGames(gamesID)
       if information.include?('"type":"game"')
         #puts allReviews.split(',')
         informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*nal_formatted":"(?<price>.*)."},"pac.*date":"(?<data>.*)"},"su/)
-        imagesDevelopers = information.match(/"header_image":"(?<img>.*)","website".*"developers":\[(?<developers>.*)\],"publishers":\[(?<publishers>.*)\],"price_/)
+        imagesDevelopers = information.match(/"header_image":"(?<img>.*)","website".*"developers":\[(?<developers>.*)\],"publishers":\[(?<publishers>.*)\],"(price_|demos)/)
 
         matchReviews = allReviews.match(/"total_positive":(?<positiveReviews>.*),"t.*"total_reviews":(?<reviews>.*)},"reviews":\[/)
 
@@ -40,7 +40,9 @@ def InformationOfGames(gamesID)
           desc = informations[:desc]
           img = imagesDevelopers[:img]
           developers = imagesDevelopers[:developers]
+          developers = developers.delete "\""
           publishers = imagesDevelopers[:publishers]
+          publishers = publishers.delete "\""
           reviews = matchReviews[:reviews]
           positiveReviews = matchReviews[:positiveReviews]
           res.push({name: name, price: price, data: data, desc: desc,
@@ -55,6 +57,6 @@ def InformationOfGames(gamesID)
   return res
 end
 
-gamesID = GetGamesID(1)
+gamesID = GetGamesID(100)
 gamesInformation = InformationOfGames(gamesID)
 puts gamesInformation
