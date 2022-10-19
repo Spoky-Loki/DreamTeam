@@ -25,20 +25,27 @@ def InformationOfGames(gamesID)
   gamesID.each do |g|
     begin
       information = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
+      allReviews = Nokogiri::HTML5(URI.open('https://store.steampowered.com/appreviews/' + g + '?json=1&language=all')).to_s
       if information.include?('"type":"game"')
-        #puts information.split(',')
-        informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*l_formatted":"(?<price>.*)."},"pac.*:{"total":(?<players>\d*).*date":"(?<data>.*)"},"su/)
+        #puts allReviews.split(',')
+        informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*nal_formatted":"(?<price>.*)."},"pac.*date":"(?<data>.*)"},"su/)
         imagesDevelopers = information.match(/"header_image":"(?<img>.*)","website".*"developers":\[(?<developers>.*)\],"publishers":\[(?<publishers>.*)\],"price_/)
+
+        matchReviews = allReviews.match(/"total_positive":(?<positiveReviews>.*),"t.*"total_reviews":(?<reviews>.*)},"reviews":\[/)
+
         if !informations[:name].nil?
           name = informations[:name]
           price = informations[:price]
-          players = informations[:players]
           data = informations[:data]
           desc = informations[:desc]
           img = imagesDevelopers[:img]
           developers = imagesDevelopers[:developers]
           publishers = imagesDevelopers[:publishers]
-          res.push({name: name, price: price, players: players, data: data, desc: desc, img: img, developers: developers, publishers: publishers})
+          reviews = matchReviews[:reviews]
+          positiveReviews = matchReviews[:positiveReviews]
+          res.push({name: name, price: price, data: data, desc: desc,
+                    img: img, developers: developers, publishers: publishers,
+                    reviews: reviews, positiveReviews: positiveReviews})
         end
       end
     rescue
@@ -48,6 +55,6 @@ def InformationOfGames(gamesID)
   return res
 end
 
-gamesID = GetGamesID(10)
+gamesID = GetGamesID(1)
 gamesInformation = InformationOfGames(gamesID)
 puts gamesInformation
