@@ -39,17 +39,35 @@ fileHtml.puts "<style>
     <th>Full name</th>
     <th>Year</th>
     <th>Image</th>
+    <th>The actors</th>
+    <th>Rating</th>
+    <th>Rating Count</th>
+
     </tr>"
 
 
 filmsInformation = GetAllFilms(GetFilmsID())
 filmsInformation.each do |elem|
   fileHtml.puts "<tr>"
-  elem.each do |_, value|
-    fileHtml.puts "<th>"
-    fileHtml.puts value
-    fileHtml.puts "</th>"
-  end
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.rank
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.title
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.title_full
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.year
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.image
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.crew
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.imDbRating
+  fileHtml.puts "<th>"
+  fileHtml.puts elem.imDbRatingCount
+  fileHtml.puts "<th>"
+
+
   fileHtml.puts "</tr>"
 end
 

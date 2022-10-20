@@ -4,7 +4,7 @@ require 'json'
 
 class Film
   @@array = Array.new
-  attr_reader :id, :rank, :title, :year, :image, :crew, :imDbRating, :imDbRatingCount
+  attr_reader :id, :rank, :title, :title_full,  :year, :image, :crew, :imDbRating, :imDbRatingCount
 
   #конструктор класса. из строки вытаскивает функцией help нужные данные для полей
   def initialize (arr_film)
@@ -12,11 +12,12 @@ class Film
     @id = help(arr, 0)
     @rank = help(arr, 1)
     @title = help(arr, 2)
-    @year = help(arr, 3)
-    @image = help(arr, 4)
-    @crew = help(arr, 5)
-    @imDbRating = help(arr, 6)
-    @imDbRatingCount = help(arr, 7)
+    @title_full =  help(arr, 3)
+    @year = help(arr, 4)
+    @image = help(arr, 5)
+    @crew = help(arr, 6)
+    @imDbRating = help(arr, 7)
+    @imDbRatingCount = help(arr, 8)
     @@array << self #при создании каждого элемента его данные записываются в массив фильмов
   end
 
