@@ -11,3 +11,4 @@
 Gemfile.lock
 .rakeTasks
 .html
+/lib/DreamTeam/Games/key.txt

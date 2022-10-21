@@ -2,9 +2,12 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
+
 def GetGamesID(max = 100)
-  url = Nokogiri::HTML5(URI.open('https://api.steampowered.com/IStoreService/GetAppList/v1/?key=FB8E10E3C18DFD06F605ACF4D049866A&include_games=true&max_results=' + max.to_s)).to_s
-  arr = url.match(/<body>(?<information>.*)<\/body>/)[1].split(',')
+  key = File.open('lib/DreamTeam/Games/key.txt')
+  url = Nokogiri::HTML5(URI.open('https://api.steampowered.com/IStoreService/GetAppList/v1/?key=' +
+                                   + key.read + '&include_games=true&max_results=' + max.to_s)).to_s
+  arr = url.split(',')
   res = []
   i = 0
   while i < arr.size
@@ -24,35 +27,26 @@ def InformationOfGames(gamesID)
   res = []
   gamesID.each do |g|
     begin
-      information = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
-      allReviews = Nokogiri::HTML5(URI.open('https://store.steampowered.com/appreviews/' + g + '?json=1&language=all')).to_s
-      if information.include?('"type":"game"')
-        #puts allReviews.split(',')
-        informations = information.match(/me":"(?<name>.*)","steam.*t_description":"(?<desc>.*)","sup.*nal_formatted":"(?<price>.*)."},"pac.*date":"(?<data>.*)"},"su/)
-        imagesDevelopers = information.match(/"header_image":"(?<img>.*)","website".*"developers":\[(?<developers>.*)\],"publishers":\[(?<publishers>.*)\],"(price_|demos)/)
-
-        matchReviews = allReviews.match(/"total_positive":(?<positiveReviews>.*),"t.*"total_reviews":(?<reviews>.*)},"reviews":\[/)
-
-        if !informations[:name].nil?
-          name = informations[:name]
-          price = informations[:price]
-          data = informations[:data]
-          desc = informations[:desc]
-          img = imagesDevelopers[:img]
-          developers = imagesDevelopers[:developers]
-          developers = developers.delete "\""
-          publishers = imagesDevelopers[:publishers]
-          publishers = publishers.delete "\""
-          reviews = matchReviews[:reviews]
-          positiveReviews = matchReviews[:positiveReviews]
-          res.push({name: name, price: price, data: data, desc: desc,
-                    img: img, developers: developers, publishers: publishers,
-                    reviews: reviews, positiveReviews: positiveReviews})
-        end
-      end
+      url = Nokogiri::HTML5(URI.open('https://store.steampowered.com/api/appdetails/?appids=' + g)).to_s
     rescue
       next
     end
+    name = url[/"name":"(?<name>.*)","steam_/, 1]
+    if name == nil
+      next
+    end
+    date = url[/date":"(?<date>.*)"},"su/, 1]
+    price = url[/nal_formatted":"(?<price>.*)."},"pac/, 1]
+    developers = url[/"developers":\[(?<developers>.*)\],"publishers"/, 1]
+    if developers != nil
+      developers = developers.delete "\""
+    end
+    recommendations = url[/tions":{"total":(?<recommendations>\d*)/, 1]
+    desc = url[/t_description":"(?<desc>.*)","sup/, 1]
+    img = url[/"header_image":"(?<img>.*)","website"/, 1]
+
+    res.push({name: name, date: date, price: price, developers: developers,
+              recommendations: recommendations, desc: desc, img: img})
   end
   return res
 end
@@ -60,3 +54,4 @@ end
 gamesID = GetGamesID(100)
 gamesInformation = InformationOfGames(gamesID)
 puts gamesInformation
+puts gamesInformation.size
