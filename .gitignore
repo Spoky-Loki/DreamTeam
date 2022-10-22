@@ -11,4 +11,4 @@
 Gemfile.lock
 .rakeTasks
 .html
-/lib/DreamTeam/Games/key.txt
+/lib/DreamTeam/Games/api_key.rb
