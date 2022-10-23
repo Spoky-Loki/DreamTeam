@@ -2,49 +2,58 @@ require_relative 'parsing_games'
 
 def create_table_with_user_game(user_id)
   file_html = File.new("lib/DreamTeam/Games/table.html", "w+")
-  file_html.puts "<style>
-               .table_dark {
-                  font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;
-                  font-size: 14px;
-                  width: 99%;
-                  text-align: centre;
-                  border-collapse: collapse;
-                  background: #252F48;
-                  margin: 10px;
-               }
-              .table_dark th {
-                 color: #EDB749;
-                 border-bottom: 1px solid #37B5A5;
-                 padding: 12px 17px;
-              }
-              .table_dark td {
-                 color: #CAD4D6;
-                 border-bottom: 1px solid #37B5A5;
-                 border-right:  1px solid #37B5A5;
-                 padding: 7px 17px;
-              }
-              .table_dark tr:last-child td {
-                 border-bottom: none;
-              }
-              .table_dark td:last-child {
-                 border-right: none;
-              }
-              .table_dark tr:hover td {
-                 text-decoration: underline;
-              }
-              </style>
+  file_html.puts "<style type='text/css'>
+                  .table {
+	                    width: 100%;
+	                    border: none;
+	                    margin-bottom: 20px;
+                  }
+                  .table thead th {
+	                    font-weight: bold;
+	                    text-align: left;
+	                    border: none;
+	                    padding: 10px 15px;
+	                    background: #d8d8d8;
+	                    font-size: 14px;
+                  }
+                  .table thead tr th:first-child {
+	                    border-radius: 8px 0 0 8px;
+                  }
+                  .table thead tr th:last-child {
+	                    border-radius: 0 8px 8px 0;
+                  }
+                  .table tbody td {
+	                    text-align: left;
+	                    border: none;
+	                    padding: 10px 15px;
+	                    font-size: 14px;
+	                    vertical-align: top;
+                  }
+                  .table tbody tr:nth-child(even){
+	                    background: #f3f3f3;
+                  }
+                  .table tbody tr td:first-child {
+	                    border-radius: 8px 0 0 8px;
+                  }
+                  .table tbody tr td:last-child {
+	                    border-radius: 0 8px 8px 0;
+                  }
+                  </style>
 
-  <table class='table_dark'>
-  <tr>
-    <th>Game</th>
-    <th>Image</th>
-    <th>Price</th>
-    <th>Developers</th>
-    <th>Date</th>
-    <th>Description</th>
-    <th>Recommendation</th>
-    <th>Time In The Game</th>
-  </tr>"
+                  <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Developers</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Recommendation</th>
+                                <th>Time In The Game</th>
+                            </tr>
+                        </thead>
+                  <tbody>"
 
   games_information = information_of_games(get_user_games(user_id))
   games_information.each do |elem|
@@ -80,6 +89,7 @@ def create_table_with_user_game(user_id)
       file_html.puts "</th>"
     file_html.puts "</tr>"
   end
-  file_html.puts "</table>"
+  file_html.puts "</tbody>
+                  </table>"
   file_html.close
 end
