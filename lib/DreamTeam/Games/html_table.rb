@@ -83,3 +83,5 @@ def create_table_with_user_game(user_id)
   file_html.puts "</table>"
   file_html.close
 end
+
+create_table_with_user_game('user_id')
