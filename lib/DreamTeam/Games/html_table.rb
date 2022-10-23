@@ -46,7 +46,7 @@ def create_table_with_user_game(user_id)
     <th>Time In The Game</th>
   </tr>"
 
-  games_information = information_of_games(get_user_games('76561198271666506'))
+  games_information = information_of_games(get_user_games(user_id))
   games_information.each do |elem|
     file_html.puts "<tr>"
       file_html.puts "<th>"

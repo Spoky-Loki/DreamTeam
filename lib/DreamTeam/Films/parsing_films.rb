@@ -71,5 +71,5 @@ def GetAllFilms(text)
   return x.print_films
 end
 
-puts(GetAllFilms(GetFilmsID()))
+#puts(GetAllFilms(GetFilmsID()))
 
