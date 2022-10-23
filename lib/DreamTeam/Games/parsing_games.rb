@@ -44,7 +44,12 @@ def information_of_games(games_id)
     name = url[/"name":"(?<name>.*)","steam_/, 1]
     time = g[:time]
     date = url[/date":"(?<date>.*)"},"su/, 1]
-    price = url[/nal_formatted":"(?<price>.*)"},"pac/, 1]
+    price = url[/nal_formatted":"(?<price>.*) pуб\."},"pac/, 1]
+    if price == nil
+      price = url[/nal_formatted":"(?<price>.*)"},"pac/, 1]
+    else
+      price += 'rub'
+    end
     developers = url[/"developers":\[(?<developers>.*)\],"publishers"/, 1]
     if developers != nil
       developers = developers.delete "\""
@@ -64,6 +69,6 @@ spoky_loki = '76561198271666506'
 
 #user_information = get_user_information(rogalik)
 #puts user_information
-#gamesInformation = information_of_games(get_user_games(rogalik))
-#puts gamesInformation
-#puts gamesInformation.size
+gamesInformation = information_of_games(get_user_games(spoky_loki))
+puts gamesInformation
+puts gamesInformation.size
