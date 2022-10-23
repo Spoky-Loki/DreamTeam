@@ -2,6 +2,7 @@ require_relative 'parsing_games'
 
 def create_table_with_user_game(user_id)
   file_html = File.new("lib/DreamTeam/Games/table.html", "w+")
+  user_info = get_user_information(user_id)
   file_html.puts "<style type='text/css'>
                   .table {
 	                    width: 100%;
@@ -42,6 +43,8 @@ def create_table_with_user_game(user_id)
 
                   <table class='table'>
                         <thead>
+                            <img src = '#{user_info[:avatar]}'>
+                            #{user_info[:username]}
                             <tr>
                                 <th>Game</th>
                                 <th>Image</th>
@@ -59,33 +62,59 @@ def create_table_with_user_game(user_id)
   games_information.each do |elem|
     file_html.puts "<tr>"
       file_html.puts "<th>"
-        file_html.puts elem[:name]
+        if elem[:name].nil?
+          file_html.puts "<span style = 'font-size:20pt'> - </span>"
+        else
+          file_html.puts elem[:name]
+        end
       file_html.puts "</th>"
       file_html.puts "<th>"
         file_html.puts "<img src = '#{elem[:img]}'
                           width = '220'
-                          height = '102'>"
+                          height = '102'
+                          alt = 'Картинка игры'>"
       file_html.puts "</th>"
       file_html.puts "<th>"
-      file_html.puts elem[:price] unless elem[:price].nil?
-        file_html.puts "Free or No Price" if elem[:price].nil?
+        if elem[:price].nil?
+          file_html.puts "<span style = 'font-size:20pt'> - </span>"
+        else
+          file_html.puts elem[:price]
+        end
       file_html.puts "</th>"
       file_html.puts "<th>"
-        file_html.puts elem[:developers]
+        if elem[:developers].nil?
+          file_html.puts "<span style = 'font-size:20pt'> - </span>"
+        else
+          file_html.puts elem[:developers]
+        end
       file_html.puts "</th>"
       file_html.puts "<th>"
-        file_html.puts elem[:date]
+        if elem[:date].nil?
+          file_html.puts "<span style = 'font-size:20pt'> - </span>"
+        else
+          file_html.puts elem[:date]
+        end
       file_html.puts "</th>"
       file_html.puts "<th>"
-        file_html.puts elem[:desc]
+        if elem[:desc].nil?
+          file_html.puts "<span style = 'font-size:20pt'> - </span>"
+        else
+          file_html.puts elem[:desc]
+        end
       file_html.puts "</th>"
       file_html.puts "<th>"
-        file_html.puts elem[:recommendations] unless elem[:recommendations].nil?
-        file_html.puts "No Recommendations" if elem[:recommendations].nil?
+        if elem[:recommendations].nil?
+          file_html.puts "<span style = 'font-size:20pt'> - </span>"
+        else
+          file_html.puts elem[:recommendations]
+        end
       file_html.puts "</th>"
       file_html.puts "<th>"
-        file_html.puts "#{elem[:time].to_i/60}h #{-(elem[:time].to_i/60*60 - elem[:time].to_i)}min" if elem[:time] != 0
-        file_html.puts "0" if elem[:time] == 0
+        if elem[:time] == 0
+          file_html.puts "0"
+        else
+          file_html.puts "#{elem[:time].to_i/60}h #{-(elem[:time].to_i/60*60 - elem[:time].to_i)}min"
+        end
       file_html.puts "</th>"
     file_html.puts "</tr>"
   end
@@ -93,5 +122,3 @@ def create_table_with_user_game(user_id)
                   </table>"
   file_html.close
 end
-
-create_table_with_user_game('user_id')

@@ -64,9 +64,9 @@ def information_of_games(games_id)
   res
 end
 
-rogalik = '76561198109538094'
-spoky_loki = '76561198271666506'
-
+#rogalik = '76561198109538094'
+#spoky_loki = '76561198271666506'
+#
 #user_information = get_user_information(rogalik)
 #puts user_information
 gamesInformation = information_of_games(get_user_games(spoky_loki))
