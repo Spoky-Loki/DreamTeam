@@ -46,7 +46,7 @@ fileHtml.puts "<style>
     </tr>"
 
 
-filmsInformation = GetAllFilms(GetFilmsID())
+filmsInformation = get_all_films(get_films_id())
 filmsInformation.each do |elem|
   fileHtml.puts "<tr>"
   fileHtml.puts "<th>"
@@ -58,7 +58,9 @@ filmsInformation.each do |elem|
   fileHtml.puts "<th>"
   fileHtml.puts elem.year
   fileHtml.puts "<th>"
-  fileHtml.puts elem.image
+  fileHtml.puts "<img src = '#{elem.image}'
+                          width = '102'
+                          height = '160'>"
   fileHtml.puts "<th>"
   fileHtml.puts elem.crew
   fileHtml.puts "<th>"
