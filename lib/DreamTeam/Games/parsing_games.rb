@@ -48,7 +48,7 @@ def information_of_games(games_id)
     if price == nil
       price = url[/nal_formatted":"(?<price>.*)"},"pac/, 1]
     else
-      price += 'rub'
+      price += ' rub'
     end
     developers = url[/"developers":\[(?<developers>.*)\],"publishers"/, 1]
     if developers != nil
