@@ -17,6 +17,14 @@ class ParsingGamesTest < Minitest::Test
     assert_equal(games_information[0][:name], "Garry's Mod")
   end
 
+  def test_name_of_Rogalik
+    assert_equal(get_user_information('76561198109538094')[:username], 'Rogalik')
+  end
+
+  def test_name_of_SpokyLoki
+    assert_equal(get_user_information('76561198271666506')[:username], '丂卩ㄖҜㄚ_ㄥㄖҜ丨')
+  end
+
   #надо выдавать исключение!!!
   #def test_bad_steam_id
   #assert_throws(OpenURI::HTTPError) do
