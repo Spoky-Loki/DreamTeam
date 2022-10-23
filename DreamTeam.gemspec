@@ -8,17 +8,32 @@ Gem::Specification.new do |spec|
   spec.authors = ["Spooky_Loki", "Rogalik", "dkozlikina", "ekaterina432"]
   spec.email = ["viter02@inbox.ru"]
 
-  spec.summary = "The RWG parser is a Ruby library created as an exercise by MMCS students."
-  #spec.description = "TODO: Write a longer description or delete this line."
+  spec.summary = "The Steam and Films parser is a Ruby library created as an exercise by Mehmat students."
+  spec.description = "This gem allows you to get information about the steam user's games and the top 250 IMDb movies.
+                       Information about steam games includes:
+                       -Name
+                       -Picture
+                       -Price
+                       -Developer
+                       -Release date
+                       -Description
+                       -Number of recommendations
+                       -Time spent in the game.
+                       Information about the films includes:
+                       -Place in the rating
+                       -Film name
+                       -Full name
+                       -Release date
+                       -Picture
+                       -The actors
+                       -Rating
+                       -Rating Count"
   spec.homepage = "https://github.com/Spoky-Loki/DreamTeam"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
-  #spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
-
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/Spoky-Loki/DreamTeam.git"
-  #spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -32,8 +47,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
-
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
+  spec.add_dependency "rake", "~> 13.0"
+  spec.add_dependency "minitest", "~> 5.0"
+  spec.add_dependency "nokogiri"
 end

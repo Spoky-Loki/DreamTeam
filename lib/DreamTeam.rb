@@ -4,5 +4,6 @@ require_relative "DreamTeam/version"
 
 module DreamTeam
   class Error < StandardError; end
-  # Your code goes here...
+  require "DreamTeam/Games/html_table"
+  require "DreamTeam/Films/html_table"
 end
