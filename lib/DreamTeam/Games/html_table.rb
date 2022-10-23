@@ -1,7 +1,7 @@
 require_relative 'parsing_games'
 
-fileHtml = File.new("lib/DreamTeam/Games/table.html", "w+")
-fileHtml.puts "<style>
+file_html = File.new("lib/DreamTeam/Games/table.html", "w+")
+file_html.puts "<style>
                .table_dark {
                   font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;
                   font-size: 14px;
@@ -39,43 +39,46 @@ fileHtml.puts "<style>
     <th>Image</th>
     <th>Price</th>
     <th>Developers</th>
-    <th>Publishers</th>
-    <th>Data</th>
+    <th>Date</th>
     <th>Description</th>
-    <th>Percent of positive reviews</th>
+    <th>Recommendation</th>
+    <th>Time In The Game</th>
 </tr>"
 
-gamesInformation = InformationOfGames(GetGamesID(100))
-gamesInformation.each do |elem|
-  fileHtml.puts "<tr>"
-    fileHtml.puts "<th>"
-      fileHtml.puts elem[:name]
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts "<img src = '#{elem[:img]}'
+games_information = information_of_games(get_user_games('76561198271666506'))
+games_information.each do |elem|
+  file_html.puts "<tr>"
+    file_html.puts "<th>"
+      file_html.puts elem[:name]
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts "<img src = '#{elem[:img]}'
                           width = '220'
                           height = '102'>"
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts elem[:price]
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts elem[:developers]
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts elem[:publishers]
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts elem[:data]
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts elem[:desc]
-    fileHtml.puts "</th>"
-    fileHtml.puts "<th>"
-      fileHtml.puts "#{elem[:positiveReviews].to_i * 100 / elem[:reviews].to_i}%"
-    fileHtml.puts "</th>"
-  fileHtml.puts "</tr>"
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts elem[:price] unless elem[:price].nil?
+      file_html.puts "Free or No Price" if elem[:price].nil?
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts elem[:developers]
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts elem[:date]
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts elem[:desc]
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts elem[:recommendations] unless elem[:recommendations].nil?
+      file_html.puts "No Recommendations" if elem[:recommendations].nil?
+    file_html.puts "</th>"
+    file_html.puts "<th>"
+      file_html.puts "#{elem[:time].to_i/60}h #{-(elem[:time].to_i/60*60 - elem[:time].to_i)}min" if elem[:time] != 0
+      file_html.puts "0" if elem[:time] == 0
+    file_html.puts "</th>"
+  file_html.puts "</tr>"
 end
 
-fileHtml.puts "</table>"
-fileHtml.close
+file_html.puts "</table>"
+file_html.close
