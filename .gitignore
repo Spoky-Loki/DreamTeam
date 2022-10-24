@@ -10,5 +10,5 @@
 *.gem
 Gemfile.lock
 .rakeTasks
-.html
+*.html
 api_key.rb
