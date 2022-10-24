@@ -3,41 +3,33 @@ require 'nokogiri'
 require 'json'
 
 class Film
-  @@array = Array.new
+  include Comparable
   attr_reader :id, :rank, :title, :title_full,  :year, :image, :crew, :imDbRating, :imDbRatingCount
 
   #конструктор класса. из строки вытаскивает функцией help нужные данные для полей
   def initialize (arr_film)
     arr = arr_film.to_s.gsub('{','').gsub('}','').gsub('",','"^^^').split('^^^')
-    @id = help(arr, 0)
-    @rank = help(arr, 1)
+    @id = help(arr, 0).to_i
+    @rank = help(arr, 1).to_i
     @title = help(arr, 2)
     @title_full =  help(arr, 3)
-    @year = help(arr, 4)
+    @year = help(arr, 4).to_i
     @image = help(arr, 5)
     @crew = help(arr, 6)
-    @imDbRating = help(arr, 7)
-    @imDbRatingCount = help(arr, 8)
-    @@array << self #при создании каждого элемента его данные записываются в массив фильмов
+    @imDbRating = help(arr, 7).to_i
+    @imDbRatingCount = help(arr, 8).to_i
+  end
+
+  def <=>(an_other)
+    an_other.year <=> self.year
   end
 
   def help(arr, i)
     return arr[i][arr[i].index(':"') + 2, arr[i].length - arr[i].index(':"') - 3]
   end
-
-  def self.all_instances
-    @@array
-  end
-
-  def print_films # пример работы с выводов данных всех фильмов
-    #$, = ', '
-    #Film.all_instances.each {|f| print(f.id, f.rank, f.title, f.year, "\n") }
-    return @@array
-  end
-
 end
 
-def GetFilmsID()
+def get_films_id()
   uri = 'https://imdb-api.com/en/API/Top250Movies/k_uq4za59n'
   doc = Nokogiri::HTML(URI.open(uri))
 
@@ -53,7 +45,7 @@ def GetFilmsID()
 end
 
 
-def GetAllFilms(text)
+def get_all_films(text)
 
   arr_films = []
   while text.index('}') != nil
@@ -64,12 +56,10 @@ def GetAllFilms(text)
     text = text.gsub(text[ind_start, dist], '')
   end
 
-  x = Film.new(arr_films[0])
+  rezult = []
   arr_films.each do|f|
-    Film.new(f)
+    rezult << Film.new(f)
   end
-  return x.print_films
+
+  return rezult
 end
-
-#puts(GetAllFilms(GetFilmsID()))
-

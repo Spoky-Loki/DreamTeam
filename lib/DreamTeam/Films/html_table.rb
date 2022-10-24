@@ -1,6 +1,35 @@
 require_relative 'parsing_films'
 
+
+
 fileHtml = File.new("lib/DreamTeam/Films/table.html", "w+")
+
+#fileHtml.puts '<%= form.select :sorting, ["By rating", "By release date. New ones first"] %>'
+#<%= form.select :city, ["Berlin", "Chicago", "Madrid"] %>
+#select(:sorting, ["By rating", "By release date. New ones first"])
+
+fileHtml.puts '<select name="sorting">
+  <option value="rank">By rating</option>
+  <option value="year_new">By release date. New ones first</option>
+</select>'
+
+"""def sorting(a)
+  if (form[:sorting] == 'By rating')
+    a.sort do |e1, e2|
+      e1.rank <=> e2.rank
+    end
+  end
+  if (form[:sorting] == 'By release date. New ones first')
+    a.sort do |e1, e2|
+      e2.year <=> e1.year
+    end
+  end
+  return a
+end"""
+
+
+
+
 fileHtml.puts "<style>
 .table_dark {
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;
@@ -46,7 +75,8 @@ fileHtml.puts "<style>
     </tr>"
 
 
-filmsInformation = GetAllFilms(GetFilmsID())
+#filmsInformation = sorting(get_all_films(get_films_id()))
+filmsInformation = get_all_films(get_films_id())
 filmsInformation.each do |elem|
   fileHtml.puts "<tr>"
   fileHtml.puts "<th>"
@@ -58,7 +88,9 @@ filmsInformation.each do |elem|
   fileHtml.puts "<th>"
   fileHtml.puts elem.year
   fileHtml.puts "<th>"
-  fileHtml.puts elem.image
+  fileHtml.puts "<img src = '#{elem.image}'
+                          width = '102'
+                          height = '160'>"
   fileHtml.puts "<th>"
   fileHtml.puts elem.crew
   fileHtml.puts "<th>"
