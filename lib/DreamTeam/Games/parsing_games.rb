@@ -69,6 +69,6 @@ end
 #
 #user_information = get_user_information(rogalik)
 #puts user_information
-gamesInformation = information_of_games(get_user_games(spoky_loki))
-puts gamesInformation
-puts gamesInformation.size
+#gamesInformation = information_of_games(get_user_games(spoky_loki))
+#puts gamesInformation
+#puts gamesInformation.size

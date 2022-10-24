@@ -72,7 +72,7 @@ def create_table_with_user_game(user_id)
         file_html.puts "<img src = '#{elem[:img]}'
                           width = '220'
                           height = '102'
-                          alt = 'Картинка игры'>"
+                          alt = 'Picture of the game'>"
       file_html.puts "</th>"
       file_html.puts "<th>"
         if elem[:price].nil?
