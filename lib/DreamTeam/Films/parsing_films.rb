@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'json'
 
 class Film
+  include Comparable
   attr_reader :id, :rank, :title, :title_full,  :year, :image, :crew, :imDbRating, :imDbRatingCount
 
   #конструктор класса. из строки вытаскивает функцией help нужные данные для полей
@@ -17,6 +18,10 @@ class Film
     @crew = help(arr, 6)
     @imDbRating = help(arr, 7).to_i
     @imDbRatingCount = help(arr, 8).to_i
+  end
+
+  def <=>(an_other)
+    an_other.year <=> self.year
   end
 
   def help(arr, i)
@@ -58,6 +63,3 @@ def get_all_films(text)
 
   return rezult
 end
-
-#puts(get_all_films(get_films_id()).count())
-
