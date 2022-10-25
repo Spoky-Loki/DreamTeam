@@ -9,14 +9,14 @@ class Film
   #конструктор класса. из строки вытаскивает функцией help нужные данные для полей
   def initialize (arr_film)
     arr = arr_film.to_s.gsub('{','').gsub('}','').gsub('",','"^^^').split('^^^')
-    @id = help(arr, 0).to_i
+    @id = help(arr, 0)
     @rank = help(arr, 1).to_i
     @title = help(arr, 2)
     @title_full =  help(arr, 3)
     @year = help(arr, 4).to_i
     @image = help(arr, 5)
     @crew = help(arr, 6)
-    @imDbRating = help(arr, 7).to_i
+    @imDbRating = help(arr, 7).to_f
     @imDbRatingCount = help(arr, 8).to_i
   end
 
