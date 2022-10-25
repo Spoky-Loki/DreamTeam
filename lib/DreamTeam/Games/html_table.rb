@@ -122,3 +122,5 @@ def create_table_with_user_game(user_id)
                   </table>"
   file_html.close
 end
+
+#create_table_with_user_game('76561198109538094')
