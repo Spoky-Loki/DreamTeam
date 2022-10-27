@@ -34,8 +34,8 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-usage example:
-        object = DreamTeam::Html_main::Html_main_page.new
+usage example:  
+        object = DreamTeam::Html_main::Html_main_page.new  
         object.create_main('Path to specify the path where the files will be created',"Steam id")
 
 ## Development
