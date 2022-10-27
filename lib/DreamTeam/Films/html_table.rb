@@ -1,6 +1,7 @@
 require_relative 'parsing_films'
 
-fileHtml = File.new("lib/DreamTeam/Films/table.html", "w+")
+def create_table_with_film(path)
+fileHtml = File.new(path + "/table_film.html", "w+")
 
 fileHtml.puts "<style>
 .table_dark {
@@ -75,3 +76,4 @@ end
 
 fileHtml.puts "</table>"
 fileHtml.close
+end

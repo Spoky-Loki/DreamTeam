@@ -1,7 +1,7 @@
 require_relative 'parsing_games'
 
-def create_table_with_user_game(user_id)
-  file_html = File.new("lib/DreamTeam/Games/table.html", "w+")
+def create_table_with_user_game(path, user_id)
+  file_html = File.new(path + "/table_game.html", "w+")
   user_info = get_user_information(user_id)
   file_html.puts "<style type='text/css'>
                   .table {
@@ -122,5 +122,3 @@ def create_table_with_user_game(user_id)
                   </table>"
   file_html.close
 end
-
-#create_table_with_user_game('76561198109538094')

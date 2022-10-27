@@ -3,24 +3,24 @@
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/DreamTeam`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 This gem allows you to get information about the steam user's games and the top 250 IMDb movies.
-Information about steam games includes:
-    -Name
-    -Picture
-    -Price
-    -Developer
-    -Release date
-    -Description
-    -Number of recommendations
-    -Time spent in the game.
-Information about the films includes:
-    -Place in the rating
-    -Film name
-    -Full name
-    -Release date
-    -Picture
-    -The actors
-    -Rating
-    -Rating Count
+Information about steam games includes:  
+    -Name  
+    -Picture  
+    -Price  
+    -Developer  
+    -Release date  
+    -Description  
+    -Number of recommendations  
+    -Time spent in the game.  
+Information about the films includes:  
+    -Place in the rating  
+    -Film name  
+    -Full name  
+    -Release date  
+    -Picture  
+    -The actors  
+    -Rating  
+    -Rating Count  
 
 ## Installation
 
@@ -34,7 +34,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+usage example:
+        object = DreamTeam::Html_main::Html_main_page.new
+        object.create_main('Path to specify the path where the files will be created',"Steam id")
 
 ## Development
 

@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'nokogiri'
-require_relative 'api_key'
 
 def get_user_information(steam_id)
   url = Nokogiri::HTML5(URI.open('https://steamcommunity.com/profiles/' + steam_id + '/?xml=1')).to_s
@@ -13,7 +12,7 @@ def get_user_games(steam_id)
   res = []
   begin
     url = Nokogiri::HTML5(URI.open('https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?steamid=' +
-      + steam_id + '&key=' + GetKey())).to_s
+      + steam_id + '&key=' + 'FB8E10E3C18DFD06F605ACF4D049866A')).to_s
   rescue
     return res
   end
@@ -63,12 +62,3 @@ def information_of_games(games_id)
   end
   res
 end
-
-#rogalik = '76561198109538094'
-#spoky_loki = '76561198271666506'
-#
-#user_information = get_user_information(rogalik)
-#puts user_information
-#gamesInformation = information_of_games(get_user_games(spoky_loki))
-#puts gamesInformation
-#puts gamesInformation.size

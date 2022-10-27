@@ -4,9 +4,9 @@ require_relative "DreamTeam/version"
 
 module DreamTeam
   class Error < StandardError; end
-  require "DreamTeam/Games/html_table"
-  require "DreamTeam/Games/parsing_games"
-  require "DreamTeam/Films/html_table"
-  require "DreamTeam/Films/parsing_films"
-  require "DreamTeam/html_main"
+  require_relative  "DreamTeam/Games/html_table"
+  require_relative  "DreamTeam/Games/parsing_games"
+  require_relative  "DreamTeam/Films/html_table"
+  require_relative  "DreamTeam/Films/parsing_films"
+  require_relative  "DreamTeam/html_main"
 end
