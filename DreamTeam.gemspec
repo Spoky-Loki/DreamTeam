@@ -49,5 +49,6 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "rake", "~> 13.0"
   spec.add_dependency "minitest", "~> 5.0"
-  spec.add_dependency "nokogiri"
+  spec.add_dependency "nokogiri", "~> 1.13.0"
+  spec.add_dependency "erb", "~> 3.0.0"
 end
