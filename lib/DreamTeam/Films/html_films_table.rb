@@ -1,13 +1,9 @@
 require_relative 'parsing_films'
 
-module DreamTeam
-  module Table_film
-    class Table_film_page
+def create_table_with_film(path)
+  fileHtml = File.new(path + "/table_film.html", "w+")
 
-      def create_table_with_film(path)
-        fileHtml = File.new(path + "/table_film.html", "w+")
-
-        fileHtml.puts "<style>
+  fileHtml.puts "<style>
 .table_dark {
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;
   font-size: 14px;
@@ -51,38 +47,32 @@ module DreamTeam
 
     </tr>"
 
-        filmsInformation = get_all_films(get_films_id())
-        filmsInformation.each do |elem|
-          fileHtml.puts "<tr>"
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.rank
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.title
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.title_full
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.year
-          fileHtml.puts "<th>"
-          fileHtml.puts "<img src = '#{elem.image}'
+  filmsInformation = get_all_films(get_films_id())
+  filmsInformation.each do |elem|
+    fileHtml.puts "<tr>"
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.rank
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.title
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.title_full
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.year
+    fileHtml.puts "<th>"
+    fileHtml.puts "<img src = '#{elem.image}'
                           width = '102'
                           height = '160'>"
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.crew
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.imDbRating
-          fileHtml.puts "<th>"
-          fileHtml.puts elem.imDbRatingCount
-          fileHtml.puts "<th>"
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.crew
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.imDbRating
+    fileHtml.puts "<th>"
+    fileHtml.puts elem.imDbRatingCount
+    fileHtml.puts "<th>"
 
-
-          fileHtml.puts "</tr>"
-        end
-
-        fileHtml.puts "</table>"
-        fileHtml.close
-      end
-
-
-    end
+    fileHtml.puts "</tr>"
   end
+
+  fileHtml.puts "</table>"
+  fileHtml.close
 end

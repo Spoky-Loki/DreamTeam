@@ -4,7 +4,7 @@ require 'DreamTeam/Films/html_films_table'
 module DreamTeam
   module Html_main
     class Html_main_page
-      def create_main(path, steam_id)
+      def self.create_main(path, steam_id)
         create_table_with_user_game(path, steam_id)
         create_table_with_film(path)
         file_html = File.new(path + '/main_table.html', 'w+')
@@ -41,3 +41,5 @@ module DreamTeam
     end
   end
 end
+
+DreamTeam::Html_main::Html_main_page.create_main("C:/ЮФУ", "76561198271666506")
