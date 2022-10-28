@@ -1,4 +1,4 @@
-require 'DreamTeam/Games/html_table'
+require 'DreamTeam/Games/html_games_table'
 require 'DreamTeam/Films/html_table'
 
 module DreamTeam
