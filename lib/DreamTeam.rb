@@ -10,5 +10,3 @@ module DreamTeam
   require_relative "DreamTeam/Films/parsing_films"
   require_relative "DreamTeam/html_main"
 end
-
-DreamTeam::Html_main::Html_main_page.create_main("C:","7271666506")
