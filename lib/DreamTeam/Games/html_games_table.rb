@@ -2,7 +2,7 @@ require_relative "parsing_games"
 require 'erb'
 
 def create_table_with_user_games(path, steam_id)
-  erb_str = File.read('lib/DreamTeam/Games/games_page.html.erb')
+  erb_str = File.read(File.dirname(__FILE__) + '/games_page.html.erb')
 
   user_info = get_user_information(steam_id)
   games_information = information_of_games(get_user_games(steam_id))

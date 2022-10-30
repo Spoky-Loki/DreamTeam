@@ -1,7 +1,7 @@
 require_relative 'parsing_films'
 require 'erb'
 def create_table_with_film(path)
-  erd_str = File.read('lib/DreamTeam/Films/films_page.html.erb')
+  erd_str = File.read(File.dirname(__FILE__) + '/films_page.html.erb')
   filmsInformation = get_all_films(get_films_id())
   @films_information = filmsInformation
   renderer = ERB.new(erd_str)

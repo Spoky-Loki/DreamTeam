@@ -9,7 +9,7 @@ module DreamTeam
         create_table_with_user_games(path, steam_id)
         create_table_with_film(path)
 
-        erb_str = File.read('lib/DreamTeam/main_page.html.erb')
+        erb_str = File.read(File.dirname(__FILE__) + '/main_page.html.erb')
 
         @path = path
         renderer = ERB.new(erb_str)
