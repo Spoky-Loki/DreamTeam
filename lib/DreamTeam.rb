@@ -11,4 +11,4 @@ module DreamTeam
   require_relative "DreamTeam/html_main"
 end
 
-#DreamTeam::Html_main::Html_main_page.create_main("C:/ЮФУ", "76561198271666506")
+DreamTeam::Html_main::Html_main_page.create_main("C:","7271666506")
